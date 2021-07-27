@@ -1,0 +1,12 @@
+
+<button type="button" (click)="success()">success</button>
+<button type="button" (click)="info()">info</button>
+<button type="button" (click)="warning()">warning</button>
+<button type="button" (click)="error()">error</button>
+<button type="button" (click)="confirm()">confirm</button>
+<button type="button" (click)="clear()">clear</button>
+
+<!-- Only add this in app.component.html if you want to use it everywhere in your application -->
+<app-cc-notification [position]="NotificationPosition.TopRight" [colored]="true"></app-cc-notification>
+
+<router-outlet></router-outlet>

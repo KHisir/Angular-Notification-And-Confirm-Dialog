@@ -1,0 +1,30 @@
+<link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel="stylesheet">
+
+<div id="notify-wrapper" class="{{position}}">
+  <div class="notification {{notify.Type}}" [class.colored]="colored === true"
+    [class.showProgressbar]="notify.AutoClose === true" [class.hideProgressbar]="notify.AutoClose === false"
+    *ngFor="let notify of notifications" (click)="removeNotification(notify)" @items>
+
+    <div class="progressbar" [hidden]="notify.AutoClose === false" [style.animation-duration]="notify.Duration/1000 + 's'"></div>
+    <span class="title">{{notify.Title}}</span>
+    <div class="message">
+      <span [innerHTML]="notify.Message"></span>
+    </div>
+  </div>
+</div>
+
+<div class="confirm-wrapper backdrop" *ngFor="let confirm of confirms">
+  <div class="content">
+    <div class="title">
+      <span>{{confirm.Title}}</span>
+    </div>
+    <div class="message">
+      <span [innerHTML]="confirm.Message"></span>
+    </div>
+    <div class="footer">
+      <button class="primary-button" (click)="removeConfirm(confirm); confirm.primaryOnClick()" [hidden]="confirm.PrimaryBtnText === '' || confirm.PrimaryBtnText === undefined">{{confirm.PrimaryBtnText}}</button>
+      <button class="primary-button" (click)="removeConfirm(confirm); confirm.secondaryOnClick()" [hidden]="confirm.SecondaryBtnText === '' || confirm.SecondaryBtnText === undefined">{{confirm.SecondaryBtnText}}</button>
+      <button class="secondary-button" (click)="removeConfirm(confirm); confirm.cancelOnClick()" [hidden]="confirm.ShowCancelButton === false">Cancel</button>
+    </div>
+  </div>
+</div>

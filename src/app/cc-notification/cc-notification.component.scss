@@ -1,0 +1,238 @@
+$primary-color: #ff4a85;
+$primary-color-hover: rgb(165, 37, 79);
+$secondary-color: #fff;
+$secondary-color-hover: rgb(177, 177, 177);
+$border-color: #dedede;
+$border-radius: 0.3rem;
+
+$backdrop: rgba(0, 0, 0, 0.7);
+$padding: 10px;
+
+* {
+  font-family: quicksand, open sans, roboto, open sans, nunito, sans-serif;
+}
+
+:root {
+  --progress-start-color: #000;
+  --progress-end-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.message::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.message {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+#notify-wrapper {
+  position: absolute;
+  &.top-right {
+    top: 0;
+    right: 0;
+  }
+  &.top-center {
+    top: 0;
+    transform: translate(-50%, 0%);
+    left: 50%;
+  }
+  &.top-left {
+    top: 0;
+    left: 0;
+  }
+  &.bottom-right {
+    bottom: 0;
+    right: 0;
+  }
+  &.bottom-center {
+    bottom: 0;
+    transform: translate(-50%, 0%);
+    left: 50%;
+  }
+  &.bottom-left {
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.notification {
+  display: grid;
+  grid-gap: 5px;
+  width: 300px;
+  padding: $padding;
+  margin: 7px;
+  border-radius: 0.5rem;
+  background-color: #353535;
+  cursor: pointer;
+
+  &.hideProgressbar {
+    grid-template-rows: auto 1fr;
+  }
+
+  &.showProgressbar {
+    grid-template-rows: 3px auto 1fr;
+  }
+
+  > span {
+    display: flex;
+    align-items: center;
+  }
+
+  .title {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    color: $secondary-color;
+    font-weight: bold;
+  }
+
+  .message {
+    overflow-y: auto;
+    color: #a2a2a2;
+  }
+
+  &.colored {
+    &.success {
+      background-color: #55efc4;
+    }
+    &.error {
+      background-color: #ff7675;
+    }
+    &.warning {
+      background-color: #ffeaa7;
+    }
+    &.info {
+      background-color: #81ecec;
+    }
+
+    span {
+      color: initial;
+    }
+  }
+
+  .progressbar {
+    animation: progressbar-countdown;
+    /* Placeholder, this will be updated using javascript */
+    animation-duration: 4s;
+    /* We stop in the end */
+    animation-iteration-count: 1;
+    /* Stay on pause when the animation is finished finished */
+    animation-fill-mode: forwards;
+    /* We start paused, we start the animation using javascript */
+    animation-play-state: running;
+    /* We want a linear animation, ease-out is standard */
+    animation-timing-function: linear;
+  }
+  @keyframes progressbar-countdown {
+    0% {
+      width: 100%;
+      background: var(--progress-start-color);
+    }
+    100% {
+      width: 0%;
+      background: var(--progress-end-color);
+    }
+  }
+}
+
+.confirm-wrapper.backdrop {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $backdrop;
+
+  > .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    background-color: $secondary-color;
+    border-radius: 0.5rem;
+    padding: $padding;
+
+    width: 400px;
+    min-height: 175px;
+    max-height: 250px;
+
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-gap: 5px;
+
+    .title {
+      font-size: 1.8rem;
+    }
+
+    .message {
+      overflow-y: auto;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: flex-end;
+      padding-top: $padding/2;
+
+      > button {
+        cursor: pointer;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        border-radius: $border-radius;
+        border: 1px solid transparent;
+        margin-left: 7.5px;
+        border-radius: $border-radius;
+        transition: all 0.3s;
+        &:disabled {
+          cursor: not-allowed;
+          pointer-events: none;
+        }
+      }
+
+      > button.primary-button {
+        background-color: $primary-color;
+        border: none;
+        color: $secondary-color;
+        &:hover {
+          -webkit-box-shadow: 0px 0px 5px 0px $primary-color-hover;
+          -moz-box-shadow: 0px 0px 5px 0px $primary-color-hover;
+          box-shadow: 0px 0px 5px 0px $primary-color-hover;
+        }
+      }
+
+      > button.secondary-button {
+        background-color: transparent;
+        border: 1px solid $border-color;
+        font-weight: bold;
+        &:hover {
+          -webkit-box-shadow: 0px 0px 5px 0px $secondary-color-hover;
+          -moz-box-shadow: 0px 0px 5px 0px $secondary-color-hover;
+          box-shadow: 0px 0px 5px 0px $secondary-color-hover;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .confirm-wrapper > .content {
+    width: 90vw !important;
+    max-height: 30vh !important;
+  }
+
+  #notify-wrapper {
+    right: auto !important;
+    left: auto !important;
+    transform: translate(-50%, 0%) !important;
+    left: 50% !important;
+  }
+
+  .notification {
+    width: calc(95vw - #{$padding}) !important;
+  }
+}
