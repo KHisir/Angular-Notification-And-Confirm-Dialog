@@ -10,7 +10,7 @@ import { Confirm } from '../cc-notification/model/confirm';
 export class NotificationService {
   private subject = new Subject<CcNotification>();
   private subjectConfirm = new Subject<Confirm>();
-  private clearSubject = new Subject<CcNotification>();
+  private clearSubject = new Subject<any>();
 
   constructor() { }
 
@@ -22,7 +22,7 @@ export class NotificationService {
     return this.subjectConfirm.asObservable();
   }
 
-  onClear(): Observable<CcNotification> {
+  onClear(): Observable<any> {
     return this.clearSubject.asObservable();
   }
 
@@ -54,6 +54,6 @@ export class NotificationService {
   }
 
   clear() {
-    this.clearSubject.next();
+    this.clearSubject.next(null);
   }
 }

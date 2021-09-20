@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CcNotificationComponent } from './cc-notification/cc-notification.component';
+import { NotificationService } from './cc-notification/notification.service';
 
 @NgModule({
   declarations: [	
@@ -16,7 +17,7 @@ import { CcNotificationComponent } from './cc-notification/cc-notification.compo
     AppRoutingModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
